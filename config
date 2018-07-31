@@ -1,0 +1,9 @@
+/sys/class/thermal/thermal_zone0/temp
+40000
+999
+
+1st row: path to file where to read from current temperature
+2nd row: minimal temperature from where to start cooler (in K * 1000)
+3d  row: hysteresis difference between 2nd row temperature and temperature, 
+on which we should stop cooler (K*1000)
+other lines are ignored.
