@@ -16,6 +16,7 @@
 #define CONF "config"
 
 char therm_path[1024];
+int therm_fd;
 uint32_t min_temperature;
 uint32_t hysteresis;
 
@@ -54,6 +55,26 @@ void set_config_info(void)
         fclose(conf);
 }
 
+void open_temp(void)
+{
+        therm_fd = open(therm_path, O_RDONLY);
+        if(therm_fd < 0 ) {
+                strerror(errno);
+                perror(PRG_NAME);
+                exit(EXIT_FAILURE);
+        }
+}
+int reopen_temp(void)
+{
+        if(close(therm_fd)) {
+                strerror(errno);
+                perror(PRG_NAME);
+                return(EXIT_FAILURE);
+        }
+        open_temp();
+        return EXIT_SUCCESS;
+}
+
 int main()
 {
         if(getuid() !=0 && geteuid() != 0) {
@@ -62,9 +83,30 @@ int main()
         }
         periph_map(&gpio);
         init_cooler();
+        /* let user know, that driver is started */
         set_cooler();
+        sleep(2);
         clr_cooler();
+
         set_config_info();
+        open_temp();
+        /* start therm verification */
+
+        static char temp[10];
+        static uint32_t current_temp;
+        while(1) {
+                reopen_temp();
+                ssize_t size = 
+                        read(therm_fd, temp,/* amount of digits */ 7);
+                temp[size] = '\0';
+                sscanf(temp, "%u", &current_temp);
+                printf("current T = %d\n", current_temp);
+                if(current_temp > min_temperature)
+                        set_cooler();
+                if(current_temp < min_temperature - hysteresis)
+                        clr_cooler();
+                sleep(1);
+        }
 }
 
 
