@@ -1,7 +1,7 @@
 CC ?= cc
-RPI_VERSION ?=RPI_V3
+SOC ?= RPI_V3
 all:
-	$(CC) -O2  -Wall -D $(RPI_VERSION) -g -o cooldown  main.c \
+	$(CC) -O2  -Wall -D $(SOC) -g -o cooldown  main.c \
 		periph.c -static
 run:
 	sudo ./cooldown
@@ -13,3 +13,8 @@ install: cooldown
 	mkdir -p /etc/cooldown/
 	cp cooldown /usr/bin/
 	cp config /etc/cooldown
+help:
+	echo "suitable SOC names:"
+	echo "RPI_V1"
+	echo "RPI_V2"
+	echo "RPI_V3"
