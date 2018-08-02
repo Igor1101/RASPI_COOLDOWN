@@ -10,8 +10,9 @@
 #include <string.h>
 #include <errno.h>
 #include "bcm2836.h"
+#include "periph.h"
 
-void periph_map(struct bcm_peripheral *p)
+void periph_map(struct peripheral *p)
 {
         p -> mem_fd = open("/dev/mem", O_RDWR | O_SYNC);
         if(p -> mem_fd < 0) {
@@ -35,7 +36,7 @@ void periph_map(struct bcm_peripheral *p)
 
 }
 
-void periph_unmap(struct bcm_peripheral *p)
+void periph_unmap(struct peripheral *p)
 {
         munmap(p -> map, PG_SIZE);
         close(p -> mem_fd);

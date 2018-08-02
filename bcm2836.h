@@ -1,9 +1,12 @@
+#ifndef BCM2836_H
+#define BCM2836_H
 #include <stdint.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/mman.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include "periph.h"
 
 #define PRG_NAME "RPI usermode cool down driver"
 #define PG_SIZE 4096
@@ -39,14 +42,23 @@
 #define      GPFEN0                    *(uint32_t*)(GPIO_VIRT_BASE + 0x0058)
 #define      GPFEN1                    *(uint32_t*)(GPIO_VIRT_BASE + 0x005C)
 
+extern struct peripheral gpio;
 
+inline void init_cooler(void)
+{
+        /* GPIO 17 as output */
+        GPFSEL1 |= (0b001)<<21;
+        GPFSEL1 &= ~((0b110)<<21);
+}
 
-struct bcm_peripheral {
-    	uintptr_t addr_p;
-    	int mem_fd;
-    	uint32_t*map;
-};
- 
- 
-extern struct bcm_peripheral gpio;
+inline void set_cooler(void)
+{
+        GPSET0 = 1<<17;
+}
 
+inline void clr_cooler(void)
+{
+        GPCLR0 = 1<<17;
+}
+
+#endif /* BCM2836_H */

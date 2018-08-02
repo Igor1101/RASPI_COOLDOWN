@@ -9,8 +9,11 @@
 #include <fcntl.h>
 #include <string.h>
 #include <errno.h>
-#include "bcm2836.h"
 #include "periph.h"
+
+#if defined RPI_V1 || defined RPI_V2 || defined RPI_V3
+#include "bcm2836.h"
+#endif /* PLATFORM */
 
 /* config file */
 #define DEFAULT_CONF "config"
@@ -22,24 +25,9 @@ int therm_fd;
 uint32_t min_temperature;
 uint32_t hysteresis;
 
-struct bcm_peripheral gpio = {GPIO_BASE};
+struct peripheral gpio = {GPIO_BASE};
 
-inline void init_cooler(void)
-{
-        /* GPIO 17 as output */
-        GPFSEL1 |= (0b001)<<21;
-        GPFSEL1 &= ~((0b110)<<21);
-}
 
-inline void set_cooler(void)
-{
-        GPSET0 = 1<<17;
-}
-
-inline void clr_cooler(void)
-{
-        GPCLR0 = 1<<17;
-}
 
 void set_config_info(void)
 {

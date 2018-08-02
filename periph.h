@@ -1,5 +1,16 @@
+#ifndef PERIPH_H
+#define PERIPH_H
 #include <stdint.h>
 
-void periph_map(struct bcm_peripheral *p);
+struct peripheral {
+    	uintptr_t addr_p;
+    	int mem_fd;
+    	uint32_t*map;
+};
 
-void periph_unmap(struct bcm_peripheral *p);
+
+void periph_map(struct peripheral *p);
+
+void periph_unmap(struct peripheral *p);
+
+#endif /* PERIPH_H */

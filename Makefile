@@ -9,12 +9,12 @@ clean:
 	rm cooldown
 install: cooldown
 	# RUN THIS AS ROOT
-	# Make all dirs needed:
+	@# Make all dirs needed:
 	mkdir -p /etc/cooldown/
 	cp cooldown /usr/bin/
 	cp config /etc/cooldown
 help:
-	echo "suitable SOC names:"
-	echo "RPI_V1"
-	echo "RPI_V2"
-	echo "RPI_V3"
+	@echo "suitable SOC names:"
+	@echo "RPI_V1"
+	@echo "RPI_V2"
+	@echo "RPI_V3"
