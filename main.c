@@ -13,9 +13,11 @@
 #include "periph.h"
 
 /* config file */
-#define CONF "config"
+#define DEFAULT_CONF "config"
+#define DEFAULT_CONF_2 "/etc/cooldown/config"
 
 char therm_path[1024];
+char conf_path[256];
 int therm_fd;
 uint32_t min_temperature;
 uint32_t hysteresis;
@@ -41,7 +43,16 @@ inline void clr_cooler(void)
 
 void set_config_info(void)
 {
-        FILE *conf = fopen(CONF, "r");
+        /* if console given: */
+        FILE *conf = fopen(conf_path, "r");
+        /* try opening one file */
+        if(conf == NULL) {
+                conf = fopen(DEFAULT_CONF, "r");
+        }
+        /* another (if driver is already installed) */
+        if(conf == NULL) {
+                conf = fopen(DEFAULT_CONF_2, "r");
+        }
         if(conf == NULL) {
                 strerror(errno);
                 perror(PRG_NAME);
@@ -75,7 +86,7 @@ int reopen_temp(void)
         return EXIT_SUCCESS;
 }
 
-int main()
+int main(int argc, char* argv[])
 {
         if(getuid() !=0 && geteuid() != 0) {
                 fprintf(stderr, "please run this as root\n");

@@ -1,6 +1,6 @@
 /sys/class/thermal/thermal_zone0/temp
-40000
-999
+50000
+5000
 
 1st row: path to file where to read from current temperature
 2nd row: minimal temperature from where to start cooler (in K * 1000)
