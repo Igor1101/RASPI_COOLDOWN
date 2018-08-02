@@ -1,0 +1,85 @@
+EESchema Schematic File Version 4
+EELAYER 26 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Transistor_BJT:TIP122 Q1
+U 1 1 5B62FEF2
+P 3250 2850
+F 0 "Q1" H 3457 2896 50  0000 L CNN
+F 1 "TIP122" H 3457 2805 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 3450 2775 50  0001 L CIN
+F 3 "http://www.fairchildsemi.com/ds/TI/TIP120.pdf" H 3250 2850 50  0001 L CNN
+	1    3250 2850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5B62FF9A
+P 3350 3350
+F 0 "#PWR?" H 3350 3100 50  0001 C CNN
+F 1 "GND" H 3355 3177 50  0000 C CNN
+F 2 "" H 3350 3350 50  0001 C CNN
+F 3 "" H 3350 3350 50  0001 C CNN
+	1    3350 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3350 3350 3350 3050
+Text GLabel 2600 2900 0    50   Input ~ 0
+BCM17
+$Comp
+L Device:R 500R
+U 1 1 5B636B5D
+P 2850 2850
+F 0 "500R" V 2643 2850 50  0000 C CNN
+F 1 "R" V 2734 2850 50  0000 C CNN
+F 2 "" V 2780 2850 50  0001 C CNN
+F 3 "~" H 2850 2850 50  0001 C CNN
+	1    2850 2850
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3050 2850 3000 2850
+Wire Wire Line
+	2700 2850 2700 2900
+Wire Wire Line
+	2700 2900 2600 2900
+$Comp
+L Motor:Fan M12v
+U 1 1 5B636E34
+P 3350 2450
+F 0 "M12v" H 3508 2546 50  0000 L CNN
+F 1 "Fan" H 3508 2455 50  0000 L CNN
+F 2 "" H 3350 2460 50  0001 C CNN
+F 3 "~" H 3350 2460 50  0001 C CNN
+	1    3350 2450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3350 2150 3350 2000
+$Comp
+L power:VSS #PWR?
+U 1 1 5B63717B
+P 3350 2000
+F 0 "#PWR?" H 3350 1850 50  0001 C CNN
+F 1 "VSS" H 3367 2173 50  0000 C CNN
+F 2 "" H 3350 2000 50  0001 C CNN
+F 3 "" H 3350 2000 50  0001 C CNN
+	1    3350 2000
+	1    0    0    -1  
+$EndComp
+Text Notes 3450 1950 0    50   ~ 10
+9 - 12V
+$EndSCHEMATC
