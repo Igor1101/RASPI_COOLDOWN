@@ -13,6 +13,8 @@
 
 #if defined RPI_V1 || defined RPI_V2 || defined RPI_V3
 #include "bcm2836.h"
+//#elif defined another_port_header
+//#include another_port_header
 #endif /* PLATFORM */
 
 /* config file */
@@ -80,9 +82,34 @@ int main(int argc, char* argv[])
                 fprintf(stderr, "please run this as root\n");
                 exit(EXIT_FAILURE);
         }
+        /* start driver as a daemon */
+        pid_t drpid = fork();
+        switch(drpid) {
+                case 0:
+                        break;
+                case -1:
+                        strerror(errno);
+                        perror(PRG_NAME);
+                        exit(EXIT_FAILURE);
+                default:
+                        exit(EXIT_SUCCESS);
+                        /* now we don`t need parent */
+        }
+        umask(0);
+        if( chdir("/") < 0 ) {
+                strerror(errno);
+                perror(PRG_NAME);
+                exit(EXIT_FAILURE);
+        }
+        close(STDIN_FILENO);
+        close(STDOUT_FILENO);
+        close(STDERR_FILENO);
+        /* Now we unable to spam to stderr :( */
+
         periph_map(&gpio);
         init_cooler();
-        /* let user know, that driver is started */
+        /* let user know, that driver is started, 
+         * and fan works*/
         set_cooler();
         sleep(2);
         clr_cooler();
@@ -91,6 +118,8 @@ int main(int argc, char* argv[])
         open_temp();
         /* start therm verification */
 
+        /* 10 digits for temperature, 
+         * the maximum is 9999999,999 C */
         static char temp[10];
         static uint32_t current_temp;
         while(1) {
