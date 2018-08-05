@@ -9,7 +9,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include <errno.h>
-#include "bcm2836.h"
+#include <fandr.h>
 #include "periph.h"
 
 void periph_map(struct peripheral *p)

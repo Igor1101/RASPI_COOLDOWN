@@ -8,8 +8,6 @@
 #include <sys/stat.h>
 #include "periph.h"
 
-#define PRG_NAME "RPI usermode cool down driver"
-#define PG_SIZE 4096
 
 #ifdef RPI_V1
 #define BCM2708_PERI_BASE       0x20000000

@@ -2,6 +2,8 @@
 #define PERIPH_H
 #include <stdint.h>
 
+#define PG_SIZE 4096
+
 struct peripheral {
     	uintptr_t addr_p;
     	int mem_fd;

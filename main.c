@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <syslog.h>
 #include <sys/mman.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -9,17 +10,15 @@
 #include <fcntl.h>
 #include <string.h>
 #include <errno.h>
+#include "fandr.h"
 #include "periph.h"
 
 #if defined RPI_V1 || defined RPI_V2 || defined RPI_V3
-#include "bcm2836.h"
+#include "platform/bcm2836.h"
 //#elif defined another_port_header
 //#include another_port_header
 #endif /* PLATFORM */
 
-/* config file */
-#define DEFAULT_CONF "config"
-#define DEFAULT_CONF_2 "/etc/cooldown/config"
 
 char therm_path[1024];
 char conf_path[256];
@@ -78,6 +77,19 @@ int reopen_temp(void)
 
 int main(int argc, char* argv[])
 {
+        /* get options */
+        int opt;
+        while( (opt = getopt(argc, argv, "f:h") ) != -1) {
+                switch(opt) {
+                        case 'f':/* conf file path */
+                                strncpy(conf_path, optarg, sizeof conf_path - 1);
+                                break;
+                        case 'h':
+                                puts("-h : help\n-f <conffilename>: config file\n");
+                                exit(0);
+                }
+        }
+
         if(getuid() !=0 && geteuid() != 0) {
                 fprintf(stderr, "please run this as root\n");
                 exit(EXIT_FAILURE);
@@ -104,7 +116,9 @@ int main(int argc, char* argv[])
         close(STDIN_FILENO);
         close(STDOUT_FILENO);
         close(STDERR_FILENO);
-        /* Now we unable to spam to stderr :( */
+        /* Now we unable to spam to stderr :( 
+         * opening log*/
+        openlog(PRG_NAME, LOG_CONS|LOG_PID, LOG_DAEMON);
 
         periph_map(&gpio);
         init_cooler();
@@ -128,11 +142,15 @@ int main(int argc, char* argv[])
                         read(therm_fd, temp,/* amount of digits */ 7);
                 temp[size] = '\0';
                 sscanf(temp, "%u", &current_temp);
-                printf("current T = %d\n", current_temp);
-                if(current_temp > min_temperature)
+                syslog(LOG_DEBUG, "current T = %d\n", current_temp);
+                if(current_temp > min_temperature) {
+                        syslog(LOG_WARNING, "current T = %d, Starting fan", current_temp);
                         set_cooler();
-                if(current_temp < min_temperature - hysteresis)
+                }
+                if(current_temp < min_temperature - hysteresis) {
+                        syslog(LOG_NOTICE, "current T = %d, Starting stopping", current_temp);
                         clr_cooler();
+                }
                 sleep(1);
         }
 }

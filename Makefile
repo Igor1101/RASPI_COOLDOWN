@@ -1,7 +1,7 @@
 CC ?= cc
 SOC ?= RPI_V3
 all:
-	$(CC) -O2  -Wall -D $(SOC) -g -o cooldown  main.c \
+	$(CC) -I ./ -O2  -Wall -D $(SOC) -g -o cooldown  main.c \
 		periph.c -static
 run:
 	sudo ./cooldown
