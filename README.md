@@ -1,5 +1,5 @@
-## COOLDOWN usermode driver for popular SOCs
-Useful, when you are ~~(compiling kernel under it)~~ overclocking your device\`s cpu 
+## COOLDOWN usermode driver for popular SBCs
+Useful, when you are ~~compiling kernel under it~~ overclocking your device\`s cpu 
 or want it to live for a long time.
 - It uses custom fan, connected to one of general-purpose pins, 
 now it runs under: 
@@ -17,12 +17,21 @@ can be easily ported to another SOCs, platforms
 
 - Compiling\Installing
 ```
-make SOC=SOC_NAME
+make SBC=SBC_NAME
 sudo make install
 ```
-Run `make help` to list SOC\_NAME suitable names
+Run `make help` to list SBC\_NAME suitable names
 
 - Running:
 ```
 sudo cooldown
 ```
+### See logs
+Sometimes it is important to see daemon messanges(our driver implemented as daemon),
+driver writes to syslog, there are different ways to see system logs, 
+but if your system configuration is based on systemd, run:
+```
+journal -f
+```
+### Porting guide
+TODO 
