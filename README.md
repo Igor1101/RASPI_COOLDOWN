@@ -31,7 +31,7 @@ Sometimes it is important to see daemon messanges(our driver implemented as daem
 driver writes to syslog, there are different ways to see system logs, 
 but if your system configuration is based on systemd, run:
 ```
-journal -f
+journalctl -f
 ```
 ### Porting guide
 TODO 
