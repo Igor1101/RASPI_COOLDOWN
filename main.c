@@ -142,14 +142,15 @@ int main(int argc, char* argv[])
                         read(therm_fd, temp,/* amount of digits */ 7);
                 temp[size] = '\0';
                 sscanf(temp, "%u", &current_temp);
-                syslog(LOG_DEBUG, "current T = %d\n", current_temp);
                 if(current_temp > min_temperature) {
-                        syslog(LOG_WARNING, "current T = %d, Starting fan", current_temp);
+                        syslog(LOG_WARNING, "current T = %d, Running fan", current_temp);
                         set_cooler();
+                        sleep(100);
                 }
                 if(current_temp < min_temperature - hysteresis) {
-                        syslog(LOG_NOTICE, "current T = %d, Starting stopping", current_temp);
+                        syslog(LOG_NOTICE, "current T = %d, Stopping fan", current_temp);
                         clr_cooler();
+                        sleep(100);
                 }
                 sleep(1);
         }
