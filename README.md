@@ -1,4 +1,4 @@
-## COOLDOWN usermode driver for popular SBCs
+## COOLDOWN fan-control usermode driver for popular SBCs
 Useful, when you are ~~compiling kernel under it~~ overclocking your device\`s cpu 
 or want it to live for a long time.
 - It uses custom fan, connected to one of general-purpose pins, 
