@@ -17,7 +17,12 @@ install_systemd: install
 	cp cooldown.service /etc/systemd/system/
 	systemctl enable cooldown
 help:
-	@echo "suitable SBC names:"
-	@echo "RPI_V1"
-	@echo "RPI_V2"
-	@echo "RPI_V3"
+	@printf "\033[32msuitable SBC names:\033[0m\n"
+	@printf "RPI_V1\n"
+	@printf "RPI_V2\n"
+	@printf "RPI_V3\n"
+	@printf "supported targets:\n"
+	@printf "\033[32mall\033[0m: compile all\n"
+	@printf "\033[32minstall\033[0m: compile all\n"
+	@printf "\033[32minstall_systemd\033[0m: install service files\n"
+	@printf "\033[32mrun\033[0m: run from current folder\n"
