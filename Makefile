@@ -13,6 +13,9 @@ install: cooldown
 	mkdir -p /etc/cooldown/
 	cp cooldown /usr/bin/
 	cp config /etc/cooldown
+install_systemd: install
+	cp cooldown.service /etc/systemd/system/
+	systemctl enable cooldown
 help:
 	@echo "suitable SBC names:"
 	@echo "RPI_V1"

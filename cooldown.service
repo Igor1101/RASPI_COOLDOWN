@@ -1,0 +1,14 @@
+[Unit]
+Description=FAN CONTROL SERVICE
+
+[Service]
+Type=forking
+User=root
+WorkingDirectory=/
+ExecStart=/usr/bin/cooldown
+ExecStop=/bin/pkill cooldown
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
