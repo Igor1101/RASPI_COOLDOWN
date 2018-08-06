@@ -1,3 +1,10 @@
+/*
+ * BSD 3-Clause License
+ * Copyright (c) 2018, Igor Muravyov
+ * All rights reserved.
+ */
+
+
 #ifndef BCM2836_H
 #define BCM2836_H
 #include <stdint.h>

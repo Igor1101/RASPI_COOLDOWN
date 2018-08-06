@@ -1,3 +1,8 @@
+#/*
+# * BSD 3-Clause License
+# * Copyright (c) 2018, Igor Muravyov
+# * All rights reserved.
+# */
 CC ?= cc
 SBC ?= RPI_V3
 all:

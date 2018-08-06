@@ -1,3 +1,10 @@
+/*
+ * BSD 3-Clause License
+ * Copyright (c) 2018, Igor Muravyov
+ * All rights reserved.
+ */
+
+
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
