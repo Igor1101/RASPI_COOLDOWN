@@ -51,19 +51,19 @@ extern struct peripheral gpio;
 
 inline void init_cooler(void)
 {
-        /* GPIO 17 as output */
-        GPFSEL1 |= (0b001)<<21;
-        GPFSEL1 &= ~((0b110)<<21);
+        /* GPIO 2 as output */
+        GPFSEL0 |= (0b001)<<6;
+        GPFSEL0 &= ~((0b110)<<6);
 }
 
 inline void set_cooler(void)
 {
-        GPSET0 = 1<<17;
+        GPSET0 = 1<<2;
 }
 
 inline void clr_cooler(void)
 {
-        GPCLR0 = 1<<17;
+        GPCLR0 = 1<<2;
 }
 
 #endif /* BCM2836_H */
