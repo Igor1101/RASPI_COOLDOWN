@@ -19,7 +19,7 @@
 #include "fandr.h"
 #include "periph.h"
 
-#if defined RPI_V1 || defined RPI_V2 || defined RPI_V3
+#if defined RPI_V1 || defined RPI_V2 || defined RPI_V3|| defined RPI_V4
 #include "platform/bcm2836.h"
 //#elif defined another_port_header
 //#include another_port_header

@@ -20,10 +20,19 @@
 #define BCM2708_PERI_BASE       0x20000000
 #elif defined RPI_V2 || defined RPI_V3
 #define BCM2708_PERI_BASE       0x3F000000
+#elif defined RPI_V4
+#define BCM2708_PERI_BASE	0xFE000000
+#else
+#error "something wrong with selected platform"
 #endif /* RPI_VERSION */
 
 
+//#if (defined RPI_V1) || (defined RPI_V2) || (defined RPI_V3)
 #define GPIO_BASE               (BCM2708_PERI_BASE + 0x200000)	
+//#elif (defined RPI_V4)
+//#define GPIO_BASE 		(0x7E215000)
+//#else
+//#endif
  
 #define GPIO_VIRT_BASE (void*)(gpio.map)
 #define BLOCK_SIZE 		(4*1024)
