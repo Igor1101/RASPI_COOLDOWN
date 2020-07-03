@@ -26,6 +26,7 @@ help:
 	@printf "RPI_V1\n"
 	@printf "RPI_V2\n"
 	@printf "RPI_V3\n"
+	@printf "RPI_V4\n"
 	@printf "supported targets:\n"
 	@printf "\033[32mall\033[0m: compile all\n"
 	@printf "\033[32minstall\033[0m: compile all\n"
